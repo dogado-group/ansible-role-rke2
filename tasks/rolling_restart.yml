@@ -10,7 +10,8 @@
     executable: /bin/bash
   register: drain
   until:
-    - drain.stdout is search('drained')
+    - '"drained" in drain_result.stdout'
+    - '"There are pending nodes to be drained" not in drain_result.stdout'
   retries: 100
   delay: 15
   changed_when: false
